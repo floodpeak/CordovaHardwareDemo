@@ -1,6 +1,25 @@
+Template.measureBP.helpers({
+    'bpjson': function () {
+        return Session.get('message');
+    }
+})
+
+
 Template.measureBP.events({
     'click': function () {
-        console.log("clicked");
+        console.log('startDiscovery...');
+        var success = function(message){
+            console.log(message);
+            Session.set('message', JSON.stringify(message));
+            //addScanDevice(message);
+        }
+
+        var failure = function(message){
+            console.log(message);
+            Session.set('message', JSON.stringify(message));
+        }
+        Session.set('message', "searching...");
+        BpManagerCordova.startDiscovery("", success, failure, "");
     }
 });
 
