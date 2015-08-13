@@ -4,6 +4,9 @@ Template.measureBP.helpers({
     },
     'message' : function () {
         return Session.get('message');
+    },
+    'message2': function () {
+        return Session.get('message2');
     }
 })
 
@@ -15,8 +18,11 @@ Template.measureBP.events({
             var address = JSON.parse(msg).address;
             Session.set('address',address);
             updateMessage(msg);
+            BpManagerCordova.getBattery(address, function(msg){
+                Session.set('message2',msg);
+            }, failureHandler, "");
             BpManagerCordova.startMeasure(address,function(msg){
-                Session.set('message',msg);
+                updateMessage(msg);
             }, failureHandler);
         }
 
