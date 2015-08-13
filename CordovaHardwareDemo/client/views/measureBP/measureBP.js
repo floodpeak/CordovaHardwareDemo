@@ -1,5 +1,8 @@
 Template.measureBP.helpers({
-    'bpjson': function () {
+    'address': function(){
+        return Session.get('address');
+    },
+    'bpjson' : function () {
         return Session.get('message');
     }
 })
@@ -9,14 +12,12 @@ Template.measureBP.events({
     'click': function () {
         console.log('startDiscovery...');
         var success = function(message){
-            console.log(message);
-            Session.set('message', JSON.stringify(message));
-            //addScanDevice(message);
+            Session.set('address',JSON.parse(message).address);
+            Session.set('message', message);
         }
 
         var failure = function(message){
-            console.log(message);
-            Session.set('message', JSON.stringify(message));
+            Session.set('message', message);
         }
         Session.set('message', "searching...");
         BpManagerCordova.startDiscovery("", success, failure, "");
