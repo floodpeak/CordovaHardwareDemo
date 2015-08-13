@@ -4,6 +4,9 @@ Template.measureBP.helpers({
     },
     'bpjson' : function () {
         return Session.get('message');
+    },
+    'bpjson2' : function () {
+        return Session.get('message2');
     }
 })
 
@@ -11,19 +14,28 @@ Template.measureBP.helpers({
 Template.measureBP.events({
     'click': function () {
         console.log('startDiscovery...');
-        var success = function(message){
-            Session.set('address',JSON.parse(message).address);
-            Session.set('message', message);
+        var success = function(msg){
+            var address = JSON.parse(msg).address;
+            Session.set('address',address);
+            updateMessage(msg);
+            BpManagerCordova.startMeasure(address,function(msg){
+                Session.set('message2',msg);
+            }, failureHandler);
         }
 
-        var failure = function(message){
-            Session.set('message', message);
-        }
-        Session.set('message', "searching...");
-        BpManagerCordova.startDiscovery("", success, failure, "");
+
+        updateMessage("searching...");
+        BpManagerCordova.startDiscovery("", success, failureHandler, "");
     }
 });
 
+function updateMessage(msg){
+    Session.set('message', msg);
+}
+
+function failureHandler(msg){
+    updateMessage(msg);
+}
 
 Template.measureBP.rendered = function(){
 
