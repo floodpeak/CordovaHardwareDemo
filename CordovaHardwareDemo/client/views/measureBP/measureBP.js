@@ -2,11 +2,8 @@ Template.measureBP.helpers({
     'address': function(){
         return Session.get('address');
     },
-    'bpjson' : function () {
+    'message' : function () {
         return Session.get('message');
-    },
-    'bpjson2' : function () {
-        return Session.get('message2');
     }
 })
 
@@ -19,10 +16,9 @@ Template.measureBP.events({
             Session.set('address',address);
             updateMessage(msg);
             BpManagerCordova.startMeasure(address,function(msg){
-                Session.set('message2',msg);
+                Session.set('message',msg);
             }, failureHandler);
         }
-
 
         updateMessage("searching...");
         BpManagerCordova.startDiscovery("", success, failureHandler, "");
