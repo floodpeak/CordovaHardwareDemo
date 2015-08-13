@@ -6,8 +6,12 @@
 
 meteor-platform
 autopublish
-insecure
-iron:router
-coffeescript
-jquery
 less
+iron:router
+twbs:bootstrap
+fortawesome:fontawesome
+zimme:iron-router-active
+jquery
+okgrow:iron-router-autoscroll
+
+

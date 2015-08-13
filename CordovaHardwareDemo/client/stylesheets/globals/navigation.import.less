@@ -5,10 +5,7 @@
 }
 
 .nav.navbar-right > li > a {
-  color: @navbar-gray;      // modified
-}
-.nav.navbar-right .welcome-message {
-  color: @navbar-gray;
+  color: #999c9e;
 }
 
 .nav > li.active > a {
@@ -17,7 +14,7 @@
 
 .navbar-default .nav > li > a:hover, .navbar-default .nav > li > a:focus {
   background-color: darken(@nav-bg, 3%);
-  color: white;   
+  color: white;
 }
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
@@ -28,9 +25,6 @@
   background-color: transparent;
 }
 
-.navbar-header .btn-link {
-  color: @navbar-gray;
-}
 .nav > li > a i {
   margin-right: 6px;
 }
@@ -63,7 +57,7 @@
   box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
   display: none;
   float: left;
-  .fm(@font-size-s);
+  font-size: 12px;
   left: 0;
   list-style: none outside none;
   padding: 0;
@@ -132,20 +126,20 @@
 }
 
 .dropdown-messages li a, .dropdown-alerts li a {
-  .fm(@font-size-s);
+  font-size: 12px;
 }
 
 .dropdown-messages li em, .dropdown-alerts li em {
-  .fm(@font-size-xxs);
+  font-size: 10px;
 }
 
 .nav.navbar-top-links .dropdown-alerts a {
-  .fm(@font-size-s);
+  font-size: 12px;
 }
 
 .nav-header {
   padding: 33px 25px;
-  //background: @nav-profil-pattern;
+  background: @nav-profil-pattern;
 
 }
 
@@ -158,9 +152,6 @@
   background: darken(@nav-bg, 3%);
 }
 
-.nav-second-level {
-  //  transition-duration: 0.5s;
-}
 
 .nav.nav-second-level > li.active {
   border: none;
@@ -181,7 +172,7 @@
 .minimalize-styl-2 {
   padding: 4px 12px;
   margin: 14px 5px 5px 20px;
-  .fm(@font-size);
+  font-size: 14px;
   float: left;
 }
 
@@ -198,14 +189,14 @@
 }
 
 .nav.navbar-top-links a {
-  .fm(@font-size);
+  font-size: 14px;
 }
 
 .navbar-form-custom .form-control {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: medium none;
-  .fm(@font-size);
-  height: 60px;   // 60px
+  font-size: 14px;
+  height: 60px;
   margin: 0;
   z-index: 2000;
 }
@@ -257,7 +248,7 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav li:hover > .nav-seco
 }
 
 body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
-  .fm(@font-size-s);
+  font-size: 12px;
   border-radius: 3px;
 }
 
@@ -275,7 +266,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
   top: 0px;
   background-color: @nav-bg;
   padding: 10px 10px 10px 10px;
-  .fm(@font-size-s);
+  font-size: 12px;
 }
 
 .canvas-menu.mini-navbar .nav-second-level {
@@ -314,7 +305,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 
 .logo-element {
   text-align: center;
-  .fm(@font-size-xxl);
+  font-size: 18px;
   font-weight: 600;
   color: white;
   display: none;
@@ -336,10 +327,16 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 }
 
 .navbar-fixed-top, .navbar-static-top {
-  background: white;
+  background: @gray;
 }
 
 .fixed-nav #wrapper {
+  margin-top: 0;
+}
+
+body.fixed-nav #wrapper .navbar-static-side,
+body.fixed-nav #wrapper #page-wrapper
+{
   margin-top: 60px;
 }
 
@@ -368,7 +365,7 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav-second-level {
 }
 
 body.mini-navbar .navbar-default .nav > li > a {
-  .fm(@font-size-xl);
+  font-size: 16px;
 }
 
 body.mini-navbar .logo-element {
@@ -433,12 +430,12 @@ body.body-small.fixed-sidebar.mini-navbar .navbar-static-side {
 }
 
 body.fixed-sidebar.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
-  .fm(@font-size-s);
+  font-size: 12px;
   border-radius: 3px;
 }
 
 body.canvas-menu.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
-  .fm(@font-size-m);
+  font-size: 13px;
   border-radius: 3px;
 }
 
@@ -451,7 +448,7 @@ body.canvas-menu.mini-navbar .navbar-default .nav > li > .nav-second-level li a 
 .canvas-menu.mini-navbar .nav-second-level {
   position: relative;
   padding: 0;
-  .fm(@font-size-m);
+  font-size: 13px;
 }
 
 .fixed-sidebar.mini-navbar li.active .nav-second-level,
@@ -461,7 +458,7 @@ body.canvas-menu.mini-navbar .navbar-default .nav > li > .nav-second-level li a 
 
 body.fixed-sidebar.mini-navbar .navbar-default .nav > li > a,
 body.canvas-menu.mini-navbar .navbar-default .nav > li > a {
-  .fm(@font-size-m);
+  font-size: 13px;
 }
 
 body.fixed-sidebar.mini-navbar .nav-label,
