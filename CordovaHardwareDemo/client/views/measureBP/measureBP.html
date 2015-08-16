@@ -22,10 +22,27 @@
                         <div class="sk-rect5"></div>
                     </div>
                 {{/if}}
-                <div class="flot-chart">
-                    <div class="flot-chart-content" id="flot-line-chart-moving"></div>
-                </div>
+
+                {{#if statusEqualTo 'measuring'}}
+                    {{#if bloodPressure}}
+                        <div>
+                            <small class="pull-right">{{bloodPressure}} mmHg</small>
+                        </div>
+                        <div class="progress progress-striped active">
+                            <div style="width: {{bloodPressureRate}}%;" class="progress-bar"></div>
+                        </div>
+                    {{/if}}
+                    <div class="flot-chart">
+                        <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                    </div>
+
+
+                {{/if}}
+                {{#if test}}
+
+                {{/if}}
                 <div>设备地址：{{address}}</div>
+                <div>status: {{status}}</div>
                 {{message}}
             </div>
         </div>
