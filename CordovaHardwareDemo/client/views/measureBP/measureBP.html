@@ -1,48 +1,36 @@
 <template name="measureBP">
-    <div class="ibox-content">
-        <div class="text-center contact_icon m-t-sm">
-            <a id="mobileMsg">
-                <i class="fa fa-phone m-r inline-block"></i>
-            </a>
-            <a id="chatMsg">
-                <i class="fa fa-comments inline-block"></i>
-            </a>
-        </div>
-        <div class="sk-spinner sk-spinner-wave">
-            <div class="sk-rect1"></div>
-            <div class="sk-rect2"></div>
-            <div class="sk-rect3"></div>
-            <div class="sk-rect4"></div>
-            <div class="sk-rect5"></div>
-        </div>
-    </div>
-    <div class="ibox-content">
-        <div>设备地址：{{address}}</div>
-        {{message}}
-        {{message2}}
-    </div>
-
     <div class="wrapper wrapper-content animated fadeInRight">
 
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>血压</h5>
-
-                    </div>
-                    <div class="ibox-content">
-                        <div class="flot-chart">
-                            <div class="flot-chart-content" id="flot-line-chart-moving"></div>
-                        </div>
-                    </div>
-                </div>
-
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>血压</h5>
             </div>
-
+            <div class="ibox-content">
+                {{#if statusEqualTo 'waitingToMeasure'}}
+                    <div class="text-center">
+                        <a id="startToMeasure">
+                            <i class="fa fa-play"></i>
+                        </a>
+                    </div>
+                {{/if}}
+                {{#if statusEqualTo 'connectingToDevice'}}
+                    <div class="sk-spinner sk-spinner-wave">
+                        <div class="sk-rect1"></div>
+                        <div class="sk-rect2"></div>
+                        <div class="sk-rect3"></div>
+                        <div class="sk-rect4"></div>
+                        <div class="sk-rect5"></div>
+                    </div>
+                {{/if}}
+                <div class="flot-chart">
+                    <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                </div>
+                <div>设备地址：{{address}}</div>
+                {{message}}
+            </div>
         </div>
 
-
     </div>
+
 
 </template>

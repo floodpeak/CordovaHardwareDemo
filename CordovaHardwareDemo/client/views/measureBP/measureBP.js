@@ -1,32 +1,32 @@
+var state = 'waitingForStarting';
+
 Template.measureBP.helpers({
+    'statusEqualTo':function(status){
+        return Session.get('status') === status;
+    },
     'address': function(){
         return Session.get('address');
     },
     'message' : function () {
         return Session.get('message');
-    },
-    'message2': function () {
-        return Session.get('message2');
     }
 })
 
 
 Template.measureBP.events({
-    'click': function () {
+    'click #startToMeasure': function () {
         console.log('startDiscovery...');
         var success = function(msg){
             var address = JSON.parse(msg).address;
             Session.set('address',address);
             updateMessage(msg);
-            BpManagerCordova.getBattery(address, function(msg){
-                Session.set('message2',msg);
-            }, failureHandler, "");
             BpManagerCordova.startMeasure(address,function(msg){
                 updateMessage(msg);
             }, failureHandler);
         }
 
         updateMessage("searching...");
+        Session.set('status','connectingToDevice');
         BpManagerCordova.startDiscovery("", success, failureHandler, "");
     }
 });
