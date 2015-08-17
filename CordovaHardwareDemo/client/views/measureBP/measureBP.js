@@ -11,10 +11,19 @@ Template.measureBP.helpers({
         return Session.get('bloodPressure');
     },
     'bloodPressureRate': function () {
-        return Session.get('bloodPressure')/250 * 100;
+        return Session.get('bloodPressure')/200 * 100;
     },
     'wave':function(){
         return Session.get('wave');
+    },
+    'HP':function(){
+        return Session.get('HP');
+    },
+    'LP':function(){
+        return Session.get('LP');
+    },
+    'heartRate':function(){
+        return Session.get('heartRate');
     },
     'address': function(){
         return Session.get('address');
@@ -22,7 +31,7 @@ Template.measureBP.helpers({
     'message' : function () {
         return Session.get('message');
     },
-    test:true
+    debug:false
 })
 
 
@@ -43,8 +52,13 @@ Template.measureBP.events({
                     }
                     if(jsonObj.wave){
                         Session.set('wave',jsonObj.wave);
-                        renderWave();
+                        renderWave(jsonObj.wave);
                     }
+                }else if(jsonObj.msg === 'measure done'){
+                    Session.set('status','measured');
+                    Session.set('HP',jsonObj.highpressure);
+                    Session.set('LP',jsonObj.lowpressure);
+                    Session.set('heartRate',jsonObj.heartrate);
                 }
             }, failureHandler);
         }
@@ -52,6 +66,9 @@ Template.measureBP.events({
         updateMessage("searching...");
         Session.set('status','connectingToDevice');
         BpManagerCordova.startDiscovery("", success, failureHandler, "");
+    },
+    'click #bpresult':function(){
+        Session.set('status','waitingToMeasure');
     }
 });
 
@@ -63,16 +80,34 @@ function failureHandler(msg){
     updateMessage(msg);
 }
 
+var data = [];
 
-var renderWave = function(){
 
+
+var renderWave = function(wave){
 
     var container = $("#flot-line-chart-moving");
 
-    var data = [];
+    var maximum = container.outerWidth() / 2 || 300;
+
+    if(data.length === 0){
+        for(var i =0;i<maximum;i++){
+            data[i] = 0;
+        }
+    }
+
+    data = data.slice(wave.length);
+    for(var i = 0;i<wave.length;i++){
+        data.push(wave[i]);
+    }
+
+    var res = [];
+    for (var i = 0; i < data.length; i++) {
+        res.push([i, data[i]]);
+    }
 
     series = [{
-        data: getRandomData(),
+        data: res,
         lines: {
             fill: false
         }
@@ -117,20 +152,16 @@ var renderWave = function(){
             }
         },
         yaxis: {
-            min: 0,
-            max: 110
+            min: 10,
+            max: 50
         },
         legend: {
             show: true
         }
     });
 
-    // Update the random dataset at 25FPS for a smoothly-animating chart
+    //plot.setData(series);
+    plot.draw();
 
-    setInterval(function updateRandom() {
-        series[0].data = getRandomData();
-        plot.setData(series);
-        plot.draw();
-    }, 40);
 
 };

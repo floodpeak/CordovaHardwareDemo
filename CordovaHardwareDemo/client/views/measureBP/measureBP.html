@@ -3,13 +3,15 @@
 
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>血压</h5>
+                <h5>iHealth血压测量</h5>
             </div>
             <div class="ibox-content">
                 {{#if statusEqualTo 'waitingToMeasure'}}
-                    <div class="text-center">
+                    <div class="text-center font-size-50 font-weight-normal">
                         <a id="startToMeasure">
-                            <i class="fa fa-play"></i>
+                            <p class="font-color-green m-r-sm">
+                                    <i class="fa fa-play"></i>
+                            </p>
                         </a>
                     </div>
                 {{/if}}
@@ -32,18 +34,28 @@
                             <div style="width: {{bloodPressureRate}}%;" class="progress-bar"></div>
                         </div>
                     {{/if}}
-                    <div class="flot-chart">
-                        <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                    {{#if wave}}
+                        <div class="flot-chart">
+                            <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                        </div>
+                    {{/if}}
+                {{/if}}
+
+                {{#if statusEqualTo 'measured'}}
+                    <div class="font-size-50 font-weight-normal" id="bpresult">
+                        <div class="font-family-en font-weight-lighter font-color-green table-block pull-left m-r-sm">
+                            <span class="inlin-block font-size-14 m-t m-l-sm pull-right font-family-en">mmHg</span>
+                            {{HP}}/{{LP}}
+                            <i class="fa fa-heart"></i>{{heartRate}}
+                        </div>
                     </div>
-
-
                 {{/if}}
-                {{#if test}}
-
+                {{#if debug}}
+                    <div>设备地址：{{address}}</div>
+                    <div>status: {{status}}</div>
+                    {{message}}
                 {{/if}}
-                <div>设备地址：{{address}}</div>
-                <div>status: {{status}}</div>
-                {{message}}
+                <div>copyright by iHealthLabs Inc.</div>
             </div>
         </div>
 
