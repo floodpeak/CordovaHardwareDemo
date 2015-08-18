@@ -1,0 +1,16 @@
+.chart-bg{
+    position: relative;
+    padding-left:40px;
+    padding-top:40px;
+    height:250px;
+}
+
+.progressbarVertical {
+    background-color: #1ab394;
+    color:#ffffff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 25px;
+    height: 0px;
+}

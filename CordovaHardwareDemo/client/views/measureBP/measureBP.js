@@ -49,6 +49,7 @@ Template.measureBP.events({
                     Session.set('status','measuring');
                     if(jsonObj.pressure){
                         Session.set('bloodPressure',jsonObj.pressure);
+                        renderBloodPressure();
                     }
                     if(jsonObj.wave){
                         Session.set('wave',jsonObj.wave);
@@ -84,7 +85,7 @@ var data = [];
 
 
 
-var renderWave = function(wave){
+renderWave = function(wave){
 
     var container = $("#flot-line-chart-moving");
 
@@ -152,8 +153,8 @@ var renderWave = function(wave){
             }
         },
         yaxis: {
-            min: 10,
-            max: 50
+            min: 0,
+            max: 80
         },
         legend: {
             show: true
@@ -165,3 +166,7 @@ var renderWave = function(wave){
 
 
 };
+
+renderBloodPressure = function() {
+    $('#bp-progressbar')[0].setAttribute("style","height:"+ Session.get('bloodPressure')+"px");
+}
