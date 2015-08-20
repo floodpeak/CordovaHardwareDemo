@@ -1,5 +1,9 @@
 var state = 'waitingForStarting';
 
+Meteor.startup(function () {
+    Session.set('status','waitingToMeasure')
+});
+
 Template.measureBP.helpers({
     'statusEqualTo':function(status){
         return Session.get('status') === status;
