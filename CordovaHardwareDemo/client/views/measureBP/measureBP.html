@@ -7,11 +7,12 @@
             </div>
             <div class="ibox-content text-center">
                 {{#if statusEqualTo 'waitingToMeasure'}}
-                    <div class="font-size-50 font-weight-normal">
+                    <div class="font-size-20 font-weight-normal start-to-measure">
                         <a id="startToMeasure">
-                            <p class="font-color-green m-r-sm">
-                                    <i class="fa fa-play"></i>
-                            </p>
+                            <img src="/startToMeasure.png" width="200px"/>
+                            <div class="font-color-white m-r-sm start-to-measure-text">
+                                开始测量
+                            </div>
                         </a>
                     </div>
                 {{/if}}
@@ -23,13 +24,14 @@
                         <div class="sk-rect4"></div>
                         <div class="sk-rect5"></div>
                     </div>
-                    <div>连接中...</div>
+                    <div>准备中...</div>
 
                 {{/if}}
 
                 {{#if statusEqualTo 'measuring'}}
                     <div class="chart-bg">
                         {{#if bloodPressure}}
+                            <div class="progressbarVertical-background"></div>
                             <div class="progressbarVertical" id="bp-progressbar">{{bloodPressure}}</div>
                         {{/if}}
                         {{#if wave}}
@@ -37,6 +39,14 @@
                                 <div class="flot-chart-content" id="flot-line-chart-moving"></div>
                             </div>
                         {{/if}}
+                    </div>
+                    <div class="font-size-20 font-weight-normal">
+                        <a id="cancelTheMeasure">
+                            <img src="/bp-stop.png" width="50px" />
+                            <p class="font-color-green">
+                                停止
+                            </p>
+                        </a>
                     </div>
                 {{/if}}
 
@@ -48,6 +58,9 @@
                             <i class="fa fa-heart"></i>{{heartRate}}
                         </div>
                     </div>
+                {{/if}}
+                {{#if error}}
+                    连接失败
                 {{/if}}
                 {{#if debug}}
                     <div>设备地址：{{address}}</div>

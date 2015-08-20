@@ -25,6 +25,9 @@ Template.measureBP.helpers({
     'heartRate':function(){
         return Session.get('heartRate');
     },
+    'error':function(){
+        return Session.get('error');
+    },
     'address': function(){
         return Session.get('address');
     },
@@ -39,10 +42,12 @@ Template.measureBP.events({
     'click #startToMeasure': function () {
         console.log('startDiscovery...');
         var success = function(msg){
+            Session.set('error',false);
             var address = JSON.parse(msg).address;
             Session.set('address',address);
             updateMessage(msg);
             BpManagerCordova.startMeasure(address,function(msg){
+                Session.set('error',false);
                 updateMessage(msg);
                 var jsonObj = JSON.parse(msg);
                 if (jsonObj.msg === 'measure doing'){
@@ -60,6 +65,8 @@ Template.measureBP.events({
                     Session.set('HP',jsonObj.highpressure);
                     Session.set('LP',jsonObj.lowpressure);
                     Session.set('heartRate',jsonObj.heartrate);
+                }else if(jsonObj.msg == 'disconnect'){
+                    Session.set('error',true);
                 }
             }, failureHandler);
         }
@@ -67,6 +74,12 @@ Template.measureBP.events({
         updateMessage("searching...");
         Session.set('status','connectingToDevice');
         BpManagerCordova.startDiscovery("", success, failureHandler, "");
+    },
+    'click #cancelTheMeasure':function(){
+        BpManagerCordova.stopMeasure(Session.get('address'), function(){
+            Session.set('status','waitingToMeasure');
+            Session.set('error',false);
+        }, failureHandler);
     },
     'click #bpresult':function(){
         Session.set('status','waitingToMeasure');
@@ -79,6 +92,7 @@ function updateMessage(msg){
 
 function failureHandler(msg){
     updateMessage(msg);
+    Session.set('error',true);
 }
 
 var data = [];
@@ -118,8 +132,8 @@ renderWave = function(wave){
     var plot = $.plot(container, series, {
         grid: {
 
-            color: "#999999",
-            tickColor: "#D4D4D4",
+            color: "#ffffff",
+            tickColor: "#ffffff",
             borderWidth:0,
             minBorderMargin: 20,
             labelMargin: 10,
@@ -129,7 +143,7 @@ renderWave = function(wave){
             margin: {
                 top: 8,
                 bottom: 20,
-                left: 20
+                left: 0
             },
             markings: function(axes) {
                 var markings = [];
@@ -154,7 +168,10 @@ renderWave = function(wave){
         },
         yaxis: {
             min: 0,
-            max: 80
+            max: 80,
+            tickFormatter: function() {
+                return "";
+            }
         },
         legend: {
             show: true

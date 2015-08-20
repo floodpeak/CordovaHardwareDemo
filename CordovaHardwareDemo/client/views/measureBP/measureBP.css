@@ -1,3 +1,15 @@
+.start-to-measure{
+    position: relative;
+}
+
+.start-to-measure-text{
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    width: 200px;
+    top: 50px;
+}
+
 .chart-bg{
     position: relative;
     padding-left:40px;
@@ -13,4 +25,13 @@
     left: 0;
     width: 25px;
     height: 0px;
+}
+
+.progressbarVertical-background {
+    background-color: #cccccc;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 25px;
+    height: 250px;
 }
